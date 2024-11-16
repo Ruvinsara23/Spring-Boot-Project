@@ -4,10 +4,13 @@ import com.example.demo.dto.UserDTO;
 import com.example.demo.model.User;
 import com.example.demo.repo.UserRepo;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.modelmapper.internal.bytebuddy.description.method.MethodDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional // data transaction
@@ -20,8 +23,12 @@ public class UserService {
     private ModelMapper modelMapper;
 
     public List<UserDTO> getAllUser(){
-      List<User>userList=userRepo.findAll();
-        return modelMapper.map(userList new MethodDescription.TypeToken());
+      List<User>userList = userRepo.findAll();
+        return modelMapper.map(userList, new TypeToken<UserDTO>(){}.getType());
+    }
+    public UserDTO saveUser(UserDTO userDTo){
+        userRepo.save(modelMapper.map(userDTo, User.class));
+        return userDTo;
     }
 }
 //flow =  Controller->DTO->Model->user repo->service(data will be stored as efferent format
