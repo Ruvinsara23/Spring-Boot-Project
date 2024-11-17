@@ -24,11 +24,19 @@ public class UserService {
 
     public List<UserDTO> getAllUser(){
       List<User>userList = userRepo.findAll();
-        return modelMapper.map(userList, new TypeToken<UserDTO>(){}.getType());
+        return modelMapper.map(userList, new TypeToken<List<UserDTO>>(){}.getType());
+
     }
-    public UserDTO saveUser(UserDTO userDTo){
-        userRepo.save(modelMapper.map(userDTo, User.class));
-        return userDTo;
+    public UserDTO saveUser(UserDTO userDTO) {
+        // Map DTO to entity\
+        System.out.println("Received UserDTO: " + userDTO);
+        User user = modelMapper.map(userDTO, User.class);
+        System.out.println("Mapped User entity: " + user);
+        // Save user entity (id will be auto-generated)
+        User savedUser = userRepo.save(user);
+        System.out.println("Saved User entity: " + savedUser);
+        // Map saved entity back to DTO
+        return modelMapper.map(savedUser, UserDTO.class);
     }
 }
 //flow =  Controller->DTO->Model->user repo->service(data will be stored as efferent format

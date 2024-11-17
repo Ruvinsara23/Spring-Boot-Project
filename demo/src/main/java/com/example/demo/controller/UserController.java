@@ -18,10 +18,8 @@ private UserService userService;
     public List<UserDTO> getUser() {
           return userService.getAllUser();
     }
-    @PostMapping("/addUser")
-    public UserDTO saveUser(@RequestBody UserDTO userDTO){
+    @PostMapping("/adduser")
+    public UserDTO saveUser(@RequestBody UserDTO userDTO) {
         return userService.saveUser(userDTO);
-
-
     }
 }
