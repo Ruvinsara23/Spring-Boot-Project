@@ -38,5 +38,14 @@ public class UserService {
         // Map saved entity back to DTO
         return modelMapper.map(savedUser, UserDTO.class);
     }
+    public UserDTO updateUser(UserDTO userDTO) {
+        userRepo.save(modelMapper.map(userDTO, User.class));
+        return userDTO;
+    }
+
+   public String deleteUser(UserDTO userDTO) {
+        userRepo.delete(modelMapper.map(userDTO, User.class));
+        return "User deleted";
+   }
 }
 //flow =  Controller->DTO->Model->user repo->service(data will be stored as efferent format
