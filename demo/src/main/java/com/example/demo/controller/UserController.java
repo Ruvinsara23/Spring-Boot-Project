@@ -27,9 +27,10 @@ private UserService userService;
     public UserDTO updateUser(@RequestBody UserDTO userDTO) {
     return userService.updateUser(userDTO);
     }
+
     @DeleteMapping("/deleteuser")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String deleteUser(@RequestBody UserDTO userDTO) {
         return userService.deleteUser(userDTO);
-
     }
 }
